@@ -8,7 +8,7 @@ namespace ExpenseTracker
 {
     class Program
     {
-        static void AddExpense(List<Expense> expenses)
+        static bool AddExpense(List<Expense> expenses)
         {
             Console.WriteLine("Please enter a description:");
             string desc = Console.ReadLine();
@@ -18,15 +18,17 @@ namespace ExpenseTracker
             if (!ok)
             {
                 Console.WriteLine("Price must be a number");
-                return;
+                return false;
             }
             expenses.Add(new Expense { Description = desc, Price = price });
+            return true;
         }
         static void Main()
         {
             List<Expense> expenses = new List<Expense>();
-            AddExpense(expenses);
-            Console.Write(expenses.Count);
+            bool Added = AddExpense(expenses);
+            if (Added == true)
+                Console.WriteLine(expenses.Count);
         }
     }
 }
