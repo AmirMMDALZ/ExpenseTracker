@@ -8,14 +8,24 @@ namespace ExpenseTracker
 {
     class Program
     {
-        static void Main(string[] args)
+        static void AddExpense(List<Expense> expenses)
         {
-            List<Expense> expenses = new List<Expense>();
             Console.WriteLine("Please enter a description:");
             string desc = Console.ReadLine();
             Console.WriteLine("please enter a price:");
-            decimal price = Convert.ToDecimal(Console.ReadLine());
+            decimal price;
+            bool ok = decimal.TryParse(Console.ReadLine(), out price);
+            if (!ok)
+            {
+                Console.WriteLine("Price must be a number");
+                return;
+            }
             expenses.Add(new Expense { Description = desc, Price = price });
+        }
+        static void Main()
+        {
+            List<Expense> expenses = new List<Expense>();
+            AddExpense(expenses);
             Console.Write(expenses.Count);
         }
     }
