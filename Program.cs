@@ -23,12 +23,47 @@ namespace ExpenseTracker
             expenses.Add(new Expense { Description = desc, Price = price });
             return true;
         }
+        static void ShowExpenses(List<Expense> expenses)
+        {
+            foreach (Expense ex in expenses)
+            {
+                Console.WriteLine(ex.Description);
+                Console.WriteLine(ex.Price);
+                Console.WriteLine("--------------");
+            }
+        }
         static void Main()
         {
             List<Expense> expenses = new List<Expense>();
-            bool Added = AddExpense(expenses);
-            if (Added == true)
-                Console.WriteLine(expenses.Count);
+            
+            bool running = true;
+
+            while (running)
+            {
+                Console.WriteLine("1. Add expense");
+                Console.WriteLine("2. Show expense");
+                Console.WriteLine("3. Exit");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        bool added = AddExpense(expenses);
+                        if (added)
+                            Console.WriteLine(expenses.Count);
+                        break;
+                    case "2":
+                        ShowExpenses(expenses);
+                        break;
+                    case "3":
+                        running = false;
+                        Console.WriteLine("BYE!");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Input!");
+                        break;
+                }
+            }
         }
     }
 }
