@@ -25,12 +25,26 @@ namespace ExpenseTracker
         }
         static void ShowExpenses(List<Expense> expenses)
         {
+            if (expenses.Count == 0)
+            {
+                Console.WriteLine("No expenses yet!");
+                return;
+            }
             foreach (Expense ex in expenses)
             {
                 Console.WriteLine(ex.Description);
                 Console.WriteLine(ex.Price);
                 Console.WriteLine("--------------");
             }
+        }
+        static decimal CalculateTotal(List<Expense> expenses)
+        {
+            decimal total = 0;
+            foreach (Expense ex in expenses)
+            {
+                total += ex.Price;
+            }
+            return total;
         }
         static void Main()
         {
@@ -42,7 +56,8 @@ namespace ExpenseTracker
             {
                 Console.WriteLine("1. Add expense");
                 Console.WriteLine("2. Show expense");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Show Total");
+                Console.WriteLine("4. Exit");
                 string choice = Console.ReadLine();
 
                 switch (choice)
@@ -56,6 +71,9 @@ namespace ExpenseTracker
                         ShowExpenses(expenses);
                         break;
                     case "3":
+                        Console.WriteLine("The Total expenses:" + CalculateTotal(expenses));
+                        break;
+                    case "4":
                         running = false;
                         Console.WriteLine("BYE!");
                         break;
