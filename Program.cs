@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,19 @@ namespace ExpenseTracker
             }
             return total;
         }
+
+        static void SaveExpenses(List<Expense> expenses)
+        {
+            List<string> lines = new List<string>();
+            foreach (Expense ex in expenses)
+            {
+                string line = "";
+                line += ex.Description + ";" + ex.Price;
+                lines.Add(line);
+            }
+
+            File.WriteAllLines("expenses.txt", lines);
+        }
         static void Main()
         {
             List<Expense> expenses = new List<Expense>();
@@ -55,9 +69,10 @@ namespace ExpenseTracker
             while (running)
             {
                 Console.WriteLine("1. Add expense");
-                Console.WriteLine("2. Show expense");
-                Console.WriteLine("3. Show Total");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("2. Show expenses");
+                Console.WriteLine("3. Show total");
+                Console.WriteLine("4. Save expenses");
+                Console.WriteLine("5. Exit");
                 string choice = Console.ReadLine();
 
                 switch (choice)
@@ -74,6 +89,9 @@ namespace ExpenseTracker
                         Console.WriteLine("The Total expenses:" + CalculateTotal(expenses));
                         break;
                     case "4":
+                        SaveExpenses(expenses);
+                        break;
+                    case "5":
                         running = false;
                         Console.WriteLine("BYE!");
                         break;
