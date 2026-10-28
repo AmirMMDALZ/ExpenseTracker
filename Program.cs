@@ -60,9 +60,32 @@ namespace ExpenseTracker
 
             File.WriteAllLines("expenses.txt", lines);
         }
-        static void Main()
+        static List<Expense> LoadExpenses()
         {
             List<Expense> expenses = new List<Expense>();
+
+            if (!File.Exists("expenses.txt"))
+            {
+                return expenses;
+            }
+
+            string[] lines = File.ReadAllLines("expenses.txt");
+
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(';');
+                string desc = parts[0];
+                decimal price = Convert.ToDecimal(parts[1]);
+                expenses.Add(new Expense { Description = desc, Price = price });
+                
+            }
+
+            return expenses;
+        }
+
+        static void Main()
+        {
+            List<Expense> expenses = LoadExpenses();
             
             bool running = true;
 
