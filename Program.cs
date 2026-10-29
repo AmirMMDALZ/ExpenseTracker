@@ -109,8 +109,7 @@ namespace ExpenseTracker
                 Console.WriteLine("1. Add expense");
                 Console.WriteLine("2. Show expenses");
                 Console.WriteLine("3. Show total");
-                Console.WriteLine("4. Save expenses");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("4. Exit");
                 string choice = Console.ReadLine();
 
                 switch (choice)
@@ -118,7 +117,10 @@ namespace ExpenseTracker
                     case "1":
                         bool added = AddExpense(expenses);
                         if (added)
+                        {
+                            SaveExpenses(expenses);
                             Console.WriteLine(expenses.Count);
+                        }
                         break;
                     case "2":
                         ShowExpenses(expenses);
@@ -127,9 +129,6 @@ namespace ExpenseTracker
                         Console.WriteLine("The Total expenses:" + CalculateTotal(expenses));
                         break;
                     case "4":
-                        SaveExpenses(expenses);
-                        break;
-                    case "5":
                         running = false;
                         Console.WriteLine("BYE!");
                         break;
