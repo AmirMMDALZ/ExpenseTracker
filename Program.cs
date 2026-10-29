@@ -13,6 +13,11 @@ namespace ExpenseTracker
         {
             Console.WriteLine("Please enter a description:");
             string desc = Console.ReadLine();
+            if (desc.Contains(';'))
+            {
+                Console.WriteLine("Description Must not Have (;)-Try again");
+                return false;
+            }
             Console.WriteLine("please enter a price:");
             decimal price;
             bool ok = decimal.TryParse(Console.ReadLine(), out price);
