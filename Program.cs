@@ -15,7 +15,7 @@ namespace ExpenseTracker
             string desc = Console.ReadLine();
             if (desc.Contains(';'))
             {
-                Console.WriteLine("Description Must not Have (;)-Try again");
+                Console.WriteLine("Description cannot contain';'");
                 return false;
             }
             Console.WriteLine("please enter a price:");
@@ -79,8 +79,18 @@ namespace ExpenseTracker
             foreach (string line in lines)
             {
                 string[] parts = line.Split(';');
+                if (parts.Length != 2)
+                {
+                    continue;
+                }
                 string desc = parts[0];
-                decimal price = Convert.ToDecimal(parts[1]);
+                decimal price;
+                bool ok = decimal.TryParse(parts[1], out price);
+                if (!ok)
+                {
+                 
+                    continue;
+                }
                 expenses.Add(new Expense { Description = desc, Price = price });
                 
             }
